@@ -61,6 +61,38 @@
         }
       }
     },
+    "/users/avatar/:userId": {
+      "patch": {
+        "summary": "Salvar avatar do usuário",
+        "description": "Deve salvar o avatar para um usuário",
+        "tags": ["users"],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Não existe um usuário com este id"
+          },
+          "200": {
+            "description": "Avatar salvo com sucesso!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/sessions": {
       "post": {
         "summary": "Login do usuário",
@@ -132,19 +164,28 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "description": "Identificador único para cada usuário"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Nome do usuário"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Nome do usuário, deve ser único"
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "description": "Senha do usuário, deve ser criptografada"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "Avatar do usuário, deve ser o filename do arquivo"
           },
           "device_id": {
-            "type": "string"
+            "type": "string",
+            "description": "ID do dispositivo do usuário, para futuras identificações"
           }
         }
       }

@@ -1,3 +1,5 @@
+import upload from '@config/upload';
+import { Exclude, Expose } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -8,7 +10,7 @@ import {
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()
@@ -18,9 +20,11 @@ export class User {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column()
+  @Exclude()
   avatar: string;
 
   @Column()
@@ -31,4 +35,22 @@ export class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Expose({ name: 'avatar' })
+  getAvatar(): string | null {
+    if (!this.avatar) {
+      return null;
+    }
+
+    switch (upload.driver) {
+      case 'diskLocal':
+        return `${process.env.APP_API_URL}/files/${this.avatar}`;
+
+      /*   case 'firebaseStorage':
+        return `${process.env.APP_API_URL}/files/${this.avatar}`; */
+
+      default:
+        return null;
+    }
+  }
 }
