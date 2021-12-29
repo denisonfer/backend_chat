@@ -1,5 +1,6 @@
-import upload from '@config/upload';
 import { container } from 'tsyringe';
+
+import upload from '@config/upload';
 import { DiskStorage } from './implementations/DiskStorage';
 import { FirebaseStorage } from './implementations/FirebaseStorage';
 import { IStorageProvider } from './models/IStorageProvider';

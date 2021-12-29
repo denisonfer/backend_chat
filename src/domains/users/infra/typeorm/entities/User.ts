@@ -1,4 +1,3 @@
-import upload from '@config/upload';
 import { Exclude, Expose } from 'class-transformer';
 import {
   Column,
@@ -8,10 +7,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import upload from '@config/upload';
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   name: string;
@@ -46,8 +47,8 @@ export class User {
       case 'diskLocal':
         return `${process.env.APP_API_URL}/files/${this.avatar}`;
 
-      /*   case 'firebaseStorage':
-        return `${process.env.APP_API_URL}/files/${this.avatar}`; */
+      case 'firebaseStorage':
+        return `${this.avatar}`;
 
       default:
         return null;
