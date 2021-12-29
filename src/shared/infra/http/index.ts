@@ -2,19 +2,21 @@ import 'reflect-metadata';
 import 'dotenv/config';
 import express, { NextFunction, Request, Response } from 'express';
 import swaggerUi from 'swagger-ui-express';
+import swaggerJsDoc from 'swagger-jsdoc';
 import cors from 'cors';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import 'express-async-errors';
 import { errors } from 'celebrate';
 
-import swaggerDocs from '@config/swaggerConfig.json';
 import '@shared/infra/typeorm';
 import '@shared/container';
 import { ServerError } from '@shared/error/ServerError';
 import upload from '@config/upload';
+import { options } from '@config/swaggerOptions';
 import { serverRoutes } from './routes';
 
+const specs = swaggerJsDoc(options);
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer);
@@ -23,7 +25,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/files', express.static(upload.uploadsFolder));
 app.use(serverRoutes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use(errors());
 
 app.use((err: Error, req: Request, res: Response, _: NextFunction) => {

@@ -133,6 +133,46 @@
         }
       }
     },
+    "/passwords": {
+      "post": {
+        "summary": "Recuperar senha",
+        "description": "Deve enviar um e-mail para reset de senha do usuário",
+        "tags": ["passwords"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "fulano@email.com",
+                    "password": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Credenciais inválidas"
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/groups": {
       "get": {
         "summary": "Lista todos os grupos do usuário",
