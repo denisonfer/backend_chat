@@ -61,7 +61,7 @@
         }
       }
     },
-    "/users/avatar/:userId": {
+    "/users/avatar/{userId}": {
       "patch": {
         "summary": "Salvar avatar do usuário",
         "description": "Deve salvar o avatar para um usuário",
@@ -142,13 +142,13 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "type": "object",
+                "$ref": "#/components/schemas/RecoveryPassMailTokens"
               },
               "examples": {
-                "user": {
+                "email": {
                   "value": {
-                    "email": "fulano@email.com",
-                    "password": "123456"
+                    "email": "fulano@email.com"
                   }
                 }
               }
@@ -156,19 +156,44 @@
           }
         },
         "responses": {
-          "401": {
-            "description": "Credenciais inválidas"
+          "400": {
+            "description": "Usuário não localizado"
           },
-          "200": {
-            "description": "Ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "$ref": "#/components/schemas/User"
+          "204": {
+            "description": "Sucesso"
+          }
+        }
+      }
+    },
+    "/passwords/reset": {
+      "put": {
+        "summary": "Reset de senha",
+        "description": "Deve resetar a senha do usuário",
+        "tags": ["passwords"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/RecoveryPassMailTokens"
+              },
+              "examples": {
+                "data": {
+                  "value": {
+                    "token": "21fa3s2f1w3e5f1as3ef51",
+                    "password": "fulano@email.com"
+                  }
                 }
               }
             }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Usuário/Token não localizado"
+          },
+          "204": {
+            "description": "Sucesso"
           }
         }
       }
@@ -226,6 +251,23 @@
           "device_id": {
             "type": "string",
             "description": "ID do dispositivo do usuário, para futuras identificações"
+          }
+        }
+      },
+      "RecoveryPassMailTokens": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único para cada token"
+          },
+          "token": {
+            "type": "string",
+            "description": "Token único gerado para gerar link de reset no e-mail"
+          },
+          "id_user": {
+            "type": "string",
+            "description": "Identificador do usuário que está recuperando a senha"
           }
         }
       }

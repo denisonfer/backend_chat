@@ -27,7 +27,7 @@ export default class SendEmailForgotPasswordService {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new ServerError('Usuário não localizado!', 401);
+      throw new ServerError('Usuário não localizado!', 400);
     }
 
     const { token } = await this.recoveryPassMailTokensRepository.createToken(

@@ -30,13 +30,13 @@ export class RecoveryPasswordService {
     );
 
     if (!userToken) {
-      throw new ServerError('Token de email inexistente', 401);
+      throw new ServerError('Token de email inexistente', 400);
     }
 
     const user = await this.usersRepository.findById(userToken.id_user);
 
     if (!user) {
-      throw new ServerError('Usuário não localizado', 401);
+      throw new ServerError('Usuário não localizado', 400);
     }
 
     const dateCreatedToken = userToken.created_at;

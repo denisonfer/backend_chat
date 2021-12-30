@@ -11,13 +11,6 @@ const userController = new UserController();
 const avatarController = new AvatarController();
 const upload = multer(uploadConfig.multer);
 
-/**
- * @swagger
- * /users
- *  post:
- *   summary: Cadastro de usuário
- */
-
 userRoutes.post(
   '/',
   celebrate({
