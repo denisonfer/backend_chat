@@ -7,6 +7,8 @@ import { UsersRepository } from '@domains/users/infra/typeorm/repositories/Users
 import { IUsersRepository } from '@domains/users/repositories/IUsersRepository';
 import { IRecoveryPassMailTokensRepository } from '@domains/users/repositories/IRecoveryPassMailTokensRepository';
 import { RecoveryPassMailTokensRepository } from '@domains/users/infra/typeorm/repositories/RecoveryPassMailTokensRepository';
+import { IGroupsRepository } from '@domains/groups/repositories/IGroupsRepository';
+import { GroupsRepository } from '@domains/groups/infra/typeorm/repositories/GroupsRepository';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -16,4 +18,9 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IRecoveryPassMailTokensRepository>(
   'RecoveryPassMailTokensRepository',
   RecoveryPassMailTokensRepository,
+);
+
+container.registerSingleton<IGroupsRepository>(
+  'GroupsRepository',
+  GroupsRepository,
 );
