@@ -37,7 +37,6 @@ export default class CreateUserTable1638578137349
           {
             name: 'device_id',
             type: 'varchar',
-            isUnique: true,
             isNullable: true,
           },
           {

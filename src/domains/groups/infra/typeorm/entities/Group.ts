@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { StatusGroup } from './StautsGroup';
+import { StatusGroup } from './StatusGroup';
+import { UsersGroup } from './UsersGroups';
 
 @Entity('groups')
 export class Group {
@@ -41,6 +43,9 @@ export class Group {
 
   @Column()
   code_invite: string;
+
+  @OneToMany(() => UsersGroup, usersGroup => usersGroup.group)
+  usersGroup: UsersGroup[];
 
   @CreateDateColumn()
   created_at: Date;

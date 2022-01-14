@@ -3,11 +3,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 import upload from '@config/upload';
+import { UsersGroup } from '@domains/groups/infra/typeorm/entities/UsersGroups';
 
 @Entity('users')
 export class User {
@@ -36,6 +38,9 @@ export class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => UsersGroup, usersGroup => usersGroup.user)
+  usersGroup: UsersGroup[];
 
   @Expose({ name: 'avatar' })
   getAvatar(): string | null {

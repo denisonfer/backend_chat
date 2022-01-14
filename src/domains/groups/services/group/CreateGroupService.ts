@@ -1,5 +1,6 @@
 import { Group } from '@domains/groups/infra/typeorm/entities/Group';
 import { IGroupsRepository } from '@domains/groups/repositories/IGroupsRepository';
+import { IUsersGroupsRepository } from '@domains/groups/repositories/IUsersGroupsRepository';
 import { IUsersRepository } from '@domains/users/repositories/IUsersRepository';
 import { ServerError } from '@shared/error/ServerError';
 import { isBefore } from 'date-fns';
@@ -23,6 +24,9 @@ export class CreateGroupService {
 
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
+    @inject('UsersGroupsRepository')
+    private usersGroupsRepository: IUsersGroupsRepository,
   ) {}
 
   public async execute({
@@ -73,6 +77,17 @@ export class CreateGroupService {
     const group = await this.groupsRepository.create(groupData);
 
     await this.groupsRepository.save(group);
+
+    const id_group = group.id;
+    const isAdmin = true;
+
+    const participants = await this.usersGroupsRepository.putUserInGroup(
+      id_user,
+      id_group,
+      isAdmin,
+    );
+
+    await this.usersGroupsRepository.save(participants);
 
     return group;
   }
