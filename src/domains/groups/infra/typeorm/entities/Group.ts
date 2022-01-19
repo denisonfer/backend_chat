@@ -44,6 +44,9 @@ export class Group {
   @Column()
   code_invite: string;
 
+  @Column('int')
+  members_qtd: number;
+
   @OneToMany(() => UsersGroup, usersGroup => usersGroup.group)
   usersGroup: UsersGroup[];
 

@@ -72,6 +72,7 @@ export class CreateGroupService {
       locale_party,
       value_min,
       code_invite,
+      members_qtd: 1,
     };
 
     const group = await this.groupsRepository.create(groupData);

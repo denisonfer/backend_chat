@@ -51,6 +51,10 @@ export class CreateGroupTable1641703438829 implements MigrationInterface {
             isUnique: true,
           },
           {
+            name: 'members_qtd',
+            type: 'int',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

@@ -6,6 +6,7 @@ import { GroupController } from '../controllers/GroupController';
 export const groupRoutes = Router();
 const groupController = new GroupController();
 
+groupRoutes.get('/', ensureAuthenticatedUser, groupController.index);
 groupRoutes.post(
   '/',
   celebrate({

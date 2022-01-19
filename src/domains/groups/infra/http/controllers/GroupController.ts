@@ -2,8 +2,19 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import { CreateGroupService } from '@domains/groups/services/group/CreateGroupService';
+import { ShowGroupsByUserService } from '@domains/groups/services/group/ShowGroupsByUserService';
 
 export class GroupController {
+  public async index(req: Request, res: Response): Promise<Response> {
+    const { id } = req.user;
+
+    const showGroupsByUser = container.resolve(ShowGroupsByUserService);
+
+    const groups = await showGroupsByUser.execute(id);
+
+    return res.json(groups);
+  }
+
   public async create(req: Request, res: Response): Promise<Response> {
     const id_user = req.user.id;
     const {

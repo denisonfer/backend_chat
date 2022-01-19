@@ -6,4 +6,5 @@ export default interface ICreateGroupDTO {
   locale_party: string;
   value_min: number;
   code_invite: string;
+  members_qtd: number;
 }
