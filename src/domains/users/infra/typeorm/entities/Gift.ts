@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -17,6 +18,7 @@ export class Gift {
   id_user: string;
 
   @OneToOne(() => User)
+  @JoinColumn({ name: 'id_user' })
   user: User;
 
   @Column()

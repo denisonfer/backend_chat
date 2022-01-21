@@ -11,6 +11,8 @@ import { IGroupsRepository } from '@domains/groups/repositories/IGroupsRepositor
 import { GroupsRepository } from '@domains/groups/infra/typeorm/repositories/GroupsRepository';
 import { IUsersGroupsRepository } from '@domains/groups/repositories/IUsersGroupsRepository';
 import { UsersGroupsRepository } from '@domains/groups/infra/typeorm/repositories/UsersGroupsRepository';
+import { IGiftsRepository } from '@domains/users/repositories/IGiftsRepository';
+import { GiftsRepository } from '@domains/users/infra/typeorm/repositories/GiftsRepository';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -30,4 +32,9 @@ container.registerSingleton<IGroupsRepository>(
 container.registerSingleton<IUsersGroupsRepository>(
   'UsersGroupsRepository',
   UsersGroupsRepository,
+);
+
+container.registerSingleton<IGiftsRepository>(
+  'GiftsRepository',
+  GiftsRepository,
 );
