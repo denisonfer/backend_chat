@@ -24,6 +24,14 @@ export class GroupsRepository implements IGroupsRepository {
     return group;
   }
 
+  public async findByCodeInvite(
+    code_invite: string,
+  ): Promise<Group | undefined> {
+    const group = await this.ormRepository.findOne({ where: { code_invite } });
+
+    return group;
+  }
+
   public async save(group: Group): Promise<Group> {
     return this.ormRepository.save(group);
   }

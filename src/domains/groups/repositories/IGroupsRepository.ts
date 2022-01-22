@@ -5,5 +5,6 @@ export interface IGroupsRepository {
   create(groupData: ICreateGroupDTO): Promise<Group>;
   delete(group: Group): Promise<void>;
   findById(id_group: string): Promise<Group | undefined>;
+  findByCodeInvite(code_invite: string): Promise<Group | undefined>;
   save(group: Group): Promise<Group>;
 }
