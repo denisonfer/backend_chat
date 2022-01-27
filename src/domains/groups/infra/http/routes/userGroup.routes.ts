@@ -7,6 +7,17 @@ import { UserGroupController } from '../controllers/UserGroupController';
 export const userGroupRoutes = Router();
 const userGroupController = new UserGroupController();
 
+userGroupRoutes.get(
+  '/:id_group',
+  celebrate({
+    [Segments.PARAMS]: {
+      id_group: Joi.string().required(),
+    },
+  }),
+  ensureAuthenticatedUser,
+  userGroupController.index,
+);
+
 userGroupRoutes.post(
   '/',
   celebrate({
