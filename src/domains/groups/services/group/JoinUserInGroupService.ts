@@ -52,6 +52,9 @@ export class JoinUserInGroupService {
         false,
       );
 
+      group.members_qtd += 1;
+
+      await this.groupsRepository.save(group);
       await this.usersGroupsRepository.save(userInGroup);
     }
   }

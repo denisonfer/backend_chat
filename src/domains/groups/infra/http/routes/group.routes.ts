@@ -7,6 +7,7 @@ export const groupRoutes = Router();
 const groupController = new GroupController();
 
 groupRoutes.get('/', ensureAuthenticatedUser, groupController.index);
+
 groupRoutes.post(
   '/',
   celebrate({
@@ -21,4 +22,23 @@ groupRoutes.post(
   }),
   ensureAuthenticatedUser,
   groupController.create,
+);
+
+groupRoutes.put(
+  '/:id_group',
+  celebrate({
+    [Segments.PARAMS]: {
+      id_group: Joi.string().required(),
+    },
+    [Segments.BODY]: {
+      name: Joi.string(),
+      date_raffle: Joi.date(),
+      date_party: Joi.date(),
+      hour_party: Joi.date(),
+      locale_party: Joi.string(),
+      value_min: Joi.number(),
+    },
+  }),
+  ensureAuthenticatedUser,
+  groupController.update,
 );
