@@ -27,6 +27,13 @@ export class UsersGroupsRepository implements IUsersGroupsRepository {
     return participants;
   }
 
+  findGroupToDoRaffle(
+    id_group: string,
+    id_user: string,
+  ): Promise<UsersGroup | undefined> {
+    return this.ormRepository.findOne({ where: { id_user, id_group } });
+  }
+
   public async putUserInGroup(
     id_user: string,
     id_group: string,
