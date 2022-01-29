@@ -42,3 +42,14 @@ groupRoutes.put(
   ensureAuthenticatedUser,
   groupController.update,
 );
+
+groupRoutes.delete(
+  '/:id_group',
+  celebrate({
+    [Segments.PARAMS]: {
+      id_group: Joi.string().required(),
+    },
+  }),
+  ensureAuthenticatedUser,
+  groupController.delete,
+);

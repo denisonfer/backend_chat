@@ -4,6 +4,7 @@ import { container } from 'tsyringe';
 import { CreateGroupService } from '@domains/groups/services/group/CreateGroupService';
 import { ShowGroupsByUserService } from '@domains/groups/services/group/ShowGroupsByUserService';
 import { EditGroupService } from '@domains/groups/services/group/EditGroupService';
+import { DeleteGroupService } from '@domains/groups/services/group/DeleteGroupService';
 
 export class GroupController {
   public async index(req: Request, res: Response): Promise<Response> {
@@ -68,5 +69,16 @@ export class GroupController {
     });
 
     return res.json(group);
+  }
+
+  public async delete(req: Request, res: Response): Promise<Response> {
+    const id_user = req.user.id;
+    const { id_group } = req.params;
+
+    const removeGroup = container.resolve(DeleteGroupService);
+
+    await removeGroup.execute(id_group, id_user);
+
+    return res.status(204).send();
   }
 }
