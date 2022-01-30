@@ -17,3 +17,14 @@ raffleRoutes.post(
   ensureAuthenticatedUser,
   raffleController.create,
 );
+
+raffleRoutes.patch(
+  '/:id_group',
+  celebrate({
+    [Segments.PARAMS]: {
+      id_group: Joi.string().required(),
+    },
+  }),
+  ensureAuthenticatedUser,
+  raffleController.update,
+);
